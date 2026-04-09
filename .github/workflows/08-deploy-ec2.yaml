@@ -3,7 +3,7 @@ name: 08 Deploy to EC2
 on:
   push:
     branches:
-      - 'main'
+      - main
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: SSH 키 파일 생성
         run: |
           echo "${{ secrets.EC2_KEY }}" > private_key.pem
-          chmod 400 private_key.pem
+          chmod 600 private_key.pem
 
       - name: EC2 접속 테스트
         run: |
@@ -24,8 +24,11 @@ jobs:
 
       - name: 파일 전송
         run: |
-          scp -o StrictHostKeyChecking=no -i private_key.pem deploy_app.py ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/
+          scp -o StrictHostKeyChecking=no -i private_key.pem flask_app.py ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/
 
       - name: 원격 실행
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "python3 /home/${{ secrets.EC2_USER }}/deploy_app.py"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "
+            pip3 install -r requirements.txt &&
+            nohup python3 /home/${{ secrets.EC2_USER }}/flask_app.py > app.log 2>&1 &
+          "
