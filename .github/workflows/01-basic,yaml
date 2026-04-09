@@ -1,0 +1,20 @@
+name: 01 basic workflow
+run-name: ${{github.actor}}의 기초 워크플로우 실습  # acotor → actor
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+     - name: 저장소 코드 가져오기
+       uses: actions/checkout@v4  # @4 → @v4
+     - name: 메시지 출력
+       run: echo "GitHub Actions Python Basic workflow Running"
+     - name: 현재 디렉토리 확인
+       run: pwd
+     - name: 파일 목록 확인
+       run: ls -al  # rum → run, ls-al → ls -al
