@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 저장소 코드 가져오기
-        uses: acctions/checkout@v4
-      - name: Python 설치
         uses: actions/checkout@v4
+      - name: Python 설치
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: python 버전 확인
