@@ -1,0 +1,22 @@
+name: 02 python run worflow
+
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 코드 가져오기
+        uses: acctions/checkout@v4
+      - name: Python 설치
+        uses: actions/checkout@v4
+        with:
+          python-version: "3.11"
+      - name: python 버전 확인
+        run: python --version
+      - name: python 파일 실행
+        run: python app.py
+      - name: 파일 목록 확인
+        run: ls -al
