@@ -30,6 +30,6 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "sudo apt intall pipx -y"
           ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "
-            pipx install -r requirements.txt &&
+            pipx install flask &&
             nohup python3 /home/${{ secrets.EC2_USER }}/flask_app.py > app.log 2>&1 &
           "
