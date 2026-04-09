@@ -3,7 +3,7 @@ name: 03 Python Test Workflow
 on:
   push:
     branches:
-      - 'main'
+      - '!main'
   pull_request:
     branches:
       - 'main'
